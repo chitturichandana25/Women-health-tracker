@@ -1,0 +1,1805 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Women Health Tracker</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fff5f8;
+            color: #333;
+        }
+
+        /* ================= LOGIN PAGE ================= */
+
+        #loginPage {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+
+        .login-box {
+            width: 380px;
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        .login-box h1 {
+            color: #e75480;
+            margin-bottom: 10px;
+        }
+
+        .login-box p {
+            margin-bottom: 25px;
+            color: #777;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 13px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #e75480;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-box button:hover {
+            background: #d94370;
+        }
+
+        /* ================= MAIN APP ================= */
+
+        #app {
+            display: none;
+        }
+
+        header {
+            background: #e75480;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        .logout-btn {
+            background: white;
+            color: #e75480;
+            border: none;
+            padding: 9px 15px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        /* ================= NAVIGATION ================= */
+
+        nav {
+            background: white;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        nav button {
+            border: none;
+            background: #ffe1ea;
+            color: #c73867;
+            padding: 10px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        nav button:hover {
+            background: #e75480;
+            color: white;
+        }
+
+        /* ================= CONTENT ================= */
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 25px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-title {
+            color: #d94370;
+            margin-bottom: 20px;
+        }
+
+        /* ================= CARDS ================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            color: #e75480;
+            margin-bottom: 10px;
+        }
+
+        .big-number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #c73867;
+        }
+
+        /* ================= FORMS ================= */
+
+        .form-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .form-card label {
+            display: block;
+            margin-top: 12px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-card input,
+        .form-card select,
+        .form-card textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .primary-btn {
+            background: #e75480;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        .primary-btn:hover {
+            background: #d94370;
+        }
+
+        /* ================= LIST ================= */
+
+        .list-item {
+            background: #fff0f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border-left: 5px solid #e75480;
+        }
+
+        .delete-btn {
+            float: right;
+            background: #ff6b81;
+            color: white;
+            border: none;
+            padding: 5px 9px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* ================= WATER ================= */
+
+        .water-counter {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .water-number {
+            font-size: 50px;
+            color: #2196f3;
+            font-weight: bold;
+        }
+
+        .water-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* ================= TIPS ================= */
+
+        .tip {
+            background: linear-gradient(135deg, #ffe0e9, #fff);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .tip h3 {
+            color: #d94370;
+            margin-bottom: 8px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+            background: #e75480;
+            color: white;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width:600px) {
+
+            header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .login-box {
+                width: 90%;
+            }
+
+            nav {
+                gap: 5px;
+            }
+
+            nav button {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =====================================================
+                    LOGIN PAGE
+===================================================== -->
+
+<div id="loginPage">
+
+    <div class="login-box">
+
+        <h1>🌸 Women Health Tracker</h1>
+
+        <p>Track your health easily and safely</p>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Enter your name"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter password"
+        >
+
+        <button onclick="login()">
+            Login
+        </button>
+
+        <p style="margin-top:15px;font-size:12px;">
+            Your information is stored locally in this browser.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+                    MAIN APPLICATION
+===================================================== -->
+
+<div id="app">
+
+    <!-- HEADER -->
+
+    <header>
+
+        <h1>🌸 Women Health Tracker</h1>
+
+        <div>
+            Welcome,
+            <span id="welcomeName"></span>
+
+            <button
+                class="logout-btn"
+                onclick="logout()">
+                Logout
+            </button>
+        </div>
+
+    </header>
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <button onclick="showSection('dashboard')">
+            📊 Dashboard
+        </button>
+
+        <button onclick="showSection('profile')">
+            👤 Profile
+        </button>
+
+        <button onclick="showSection('period')">
+            🩸 Period Tracker
+        </button>
+
+        <button onclick="showSection('symptoms')">
+            📝 Symptoms
+        </button>
+
+        <button onclick="showSection('medicine')">
+            💊 Medicine
+        </button>
+
+        <button onclick="showSection('water')">
+            💧 Water
+        </button>
+
+        <button onclick="showSection('tips')">
+            🌱 Health Tips
+        </button>
+
+    </nav>
+
+
+    <div class="container">
+
+
+        <!-- =================================================
+                        DASHBOARD
+        ================================================= -->
+
+        <section
+            id="dashboard"
+            class="section active">
+
+            <h2 class="section-title">
+                📊 Health Dashboard
+            </h2>
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <h3>👤 Profile</h3>
+
+                    <p>
+                        Name:
+                        <strong id="dashName">
+                            Not added
+                        </strong>
+                    </p>
+
+                    <p>
+                        Age:
+                        <strong id="dashAge">
+                            -
+                        </strong>
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>🩸 Next Period</h3>
+
+                    <p
+                        id="dashboardPeriod">
+                        Not calculated
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>💧 Water Today</h3>
+
+                    <div
+                        class="big-number"
+                        id="dashboardWater">
+                        0
+                    </div>
+
+                    <p>glasses</p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>📝 Symptoms</h3>
+
+                    <div
+                        class="big-number"
+                        id="dashboardSymptoms">
+                        0
+                    </div>
+
+                    <p>records</p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>💊 Medicines</h3>
+
+                    <div
+                        class="big-number"
+                        id="dashboardMedicine">
+                        0
+                    </div>
+
+                    <p>reminders</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-card" style="margin-top:25px;">
+
+                <h3>🌸 Welcome to Your Health Tracker</h3>
+
+                <p style="margin-top:10px;line-height:1.7;">
+
+                    This application helps you keep track of
+                    important health information such as your
+                    personal profile, menstrual cycle,
+                    symptoms, medicines, water intake and
+                    daily health habits.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+                        PERSONAL PROFILE
+        ================================================= -->
+
+        <section
+            id="profile"
+            class="section">
+
+            <h2 class="section-title">
+                👤 Personal Profile
+            </h2>
+
+            <div class="form-card">
+
+                <label>Full Name</label>
+
+                <input
+                    type="text"
+                    id="profileName"
+                    placeholder="Enter your name"
+                >
+
+
+                <label>Age</label>
+
+                <input
+                    type="number"
+                    id="profileAge"
+                    placeholder="Enter your age"
+                >
+
+
+                <label>Height (cm)</label>
+
+                <input
+                    type="number"
+                    id="profileHeight"
+                    placeholder="Enter height"
+                >
+
+
+                <label>Weight (kg)</label>
+
+                <input
+                    type="number"
+                    id="profileWeight"
+                    placeholder="Enter weight"
+                >
+
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="profileEmail"
+                    placeholder="Enter email"
+                >
+
+
+                <button
+                    class="primary-btn"
+                    onclick="saveProfile()">
+
+                    Save Profile
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+                        PERIOD TRACKER
+        ================================================= -->
+
+        <section
+            id="period"
+            class="section">
+
+            <h2 class="section-title">
+                🩸 Period Tracker
+            </h2>
+
+            <div class="form-card">
+
+                <label>
+                    First Day of Last Period
+                </label>
+
+                <input
+                    type="date"
+                    id="periodDate"
+                >
+
+
+                <label>
+                    Average Cycle Length (days)
+                </label>
+
+                <input
+                    type="number"
+                    id="cycleLength"
+                    value="28"
+                    min="15"
+                    max="60"
+                >
+
+
+                <button
+                    class="primary-btn"
+                    onclick="calculatePeriod()">
+
+                    Calculate Next Period
+
+                </button>
+
+
+                <div
+                    id="periodResult"
+                    style="margin-top:20px;font-size:18px;">
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+                        SYMPTOM TRACKER
+        ================================================= -->
+
+        <section
+            id="symptoms"
+            class="section">
+
+            <h2 class="section-title">
+                📝 Symptom Tracker
+            </h2>
+
+
+            <div class="form-card">
+
+                <label>Date</label>
+
+                <input
+                    type="date"
+                    id="symptomDate"
+                >
+
+
+                <label>Select Symptoms</label>
+
+                <select
+                    id="symptomSelect">
+
+                    <option value="Headache">
+                        Headache
+                    </option>
+
+                    <option value="Stomach Pain">
+                        Stomach Pain
+                    </option>
+
+                    <option value="Back Pain">
+                        Back Pain
+                    </option>
+
+                    <option value="Fatigue">
+                        Fatigue / Tiredness
+                    </option>
+
+                    <option value="Nausea">
+                        Nausea
+                    </option>
+
+                    <option value="Mood Changes">
+                        Mood Changes
+                    </option>
+
+                    <option value="Cramps">
+                        Cramps
+                    </option>
+
+                </select>
+
+
+                <label>Notes</label>
+
+                <textarea
+                    id="symptomNotes"
+                    rows="4"
+                    placeholder="Write additional information">
+                </textarea>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="addSymptom()">
+
+                    Add Symptom
+
+                </button>
+
+            </div>
+
+
+            <div class="form-card">
+
+                <h3>Previous Symptoms</h3>
+
+                <div id="symptomList"></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+                        MEDICINE REMINDER
+        ================================================= -->
+
+        <section
+            id="medicine"
+            class="section">
+
+            <h2 class="section-title">
+                💊 Medicine Reminder
+            </h2>
+
+
+            <div class="form-card">
+
+                <label>Medicine Name</label>
+
+                <input
+                    type="text"
+                    id="medicineName"
+                    placeholder="Example: Vitamin tablet"
+                >
+
+
+                <label>Date</label>
+
+                <input
+                    type="date"
+                    id="medicineDate"
+                >
+
+
+                <label>Time</label>
+
+                <input
+                    type="time"
+                    id="medicineTime"
+                >
+
+
+                <button
+                    class="primary-btn"
+                    onclick="addMedicine()">
+
+                    Add Reminder
+
+                </button>
+
+            </div>
+
+
+            <div class="form-card">
+
+                <h3>Medicine Reminders</h3>
+
+                <div id="medicineList"></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+                        WATER REMINDER
+        ================================================= -->
+
+        <section
+            id="water"
+            class="section">
+
+            <h2 class="section-title">
+                💧 Water Reminder
+            </h2>
+
+
+            <div class="form-card water-counter">
+
+                <h3>
+                    Today's Water Intake
+                </h3>
+
+
+                <div
+                    class="water-number"
+                    id="waterCount">
+                    0
+                </div>
+
+                <p>
+                    glasses
+                </p>
+
+
+                <button
+                    class="water-btn"
+                    onclick="addWater()">
+
+                    + Add Glass
+
+                </button>
+
+
+                <button
+                    class="water-btn"
+                    onclick="removeWater()">
+
+                    - Remove Glass
+
+                </button>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="resetWater()">
+
+                    Reset
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+                        DAILY HEALTH TIPS
+        ================================================= -->
+
+        <section
+            id="tips"
+            class="section">
+
+            <h2 class="section-title">
+                🌱 Daily Health Tips
+            </h2>
+
+
+            <div class="tip">
+
+                <h3>💧 Stay Hydrated</h3>
+
+                <p>
+                    Drink enough water throughout the day
+                    according to your individual needs.
+                </p>
+
+            </div>
+
+
+            <div class="tip">
+
+                <h3>🥗 Eat Healthy Food</h3>
+
+                <p>
+                    Include vegetables, fruits, whole grains
+                    and protein-rich foods in your diet.
+                </p>
+
+            </div>
+
+
+            <div class="tip">
+
+                <h3>🏃 Exercise</h3>
+
+                <p>
+                    Regular physical activity can support
+                    overall health and wellbeing.
+                </p>
+
+            </div>
+
+
+            <div class="tip">
+
+                <h3>😴 Get Enough Sleep</h3>
+
+                <p>
+                    Maintain a regular sleep schedule and
+                    give your body enough time to rest.
+                </p>
+
+            </div>
+
+
+            <div class="tip">
+
+                <h3>🧘 Manage Stress</h3>
+
+                <p>
+                    Try relaxation activities such as
+                    breathing exercises, walking or meditation.
+                </p>
+
+            </div>
+
+
+            <div class="tip">
+
+                <h3>👩‍⚕️ Consult a Professional</h3>
+
+                <p>
+                    For persistent, severe or concerning
+                    symptoms, consult a qualified healthcare
+                    professional.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+    <!-- =================================================
+                        FOOTER
+    ================================================= -->
+
+    <footer>
+
+        <p>
+            🌸 Women Health Tracker
+        </p>
+
+        <p style="margin-top:8px;font-size:13px;">
+
+            This application provides general health
+            information and tracking features.
+            It is not a substitute for professional
+            medical advice or diagnosis.
+
+        </p>
+
+    </footer>
+
+</div>
+
+
+
+<!-- =====================================================
+                    JAVASCRIPT
+===================================================== -->
+
+<script>
+
+    /* =====================================================
+                        LOGIN
+    ===================================================== */
+
+    function login() {
+
+        const username =
+            document.getElementById("username").value.trim();
+
+        const password =
+            document.getElementById("password").value.trim();
+
+
+        if (username === "" || password === "") {
+
+            alert("Please enter name and password.");
+
+            return;
+        }
+
+
+        localStorage.setItem(
+            "loggedIn",
+            "true"
+        );
+
+        localStorage.setItem(
+            "loginName",
+            username
+        );
+
+
+        showApp();
+
+    }
+
+
+
+    function showApp() {
+
+        document.getElementById("loginPage")
+            .style.display = "none";
+
+        document.getElementById("app")
+            .style.display = "block";
+
+
+        const name =
+            localStorage.getItem("loginName") || "User";
+
+
+        document.getElementById("welcomeName")
+            .textContent = name;
+
+
+        loadAllData();
+
+    }
+
+
+
+    function logout() {
+
+        localStorage.removeItem("loggedIn");
+
+        document.getElementById("app")
+            .style.display = "none";
+
+        document.getElementById("loginPage")
+            .style.display = "flex";
+
+    }
+
+
+
+    /* =====================================================
+                        NAVIGATION
+    ===================================================== */
+
+    function showSection(sectionId) {
+
+        const sections =
+            document.querySelectorAll(".section");
+
+
+        sections.forEach(section => {
+
+            section.classList.remove("active");
+
+        });
+
+
+        document
+            .getElementById(sectionId)
+            .classList.add("active");
+
+    }
+
+
+
+    /* =====================================================
+                        PROFILE
+    ===================================================== */
+
+    function saveProfile() {
+
+        const profile = {
+
+            name:
+                document.getElementById("profileName").value,
+
+            age:
+                document.getElementById("profileAge").value,
+
+            height:
+                document.getElementById("profileHeight").value,
+
+            weight:
+                document.getElementById("profileWeight").value,
+
+            email:
+                document.getElementById("profileEmail").value
+
+        };
+
+
+        localStorage.setItem(
+            "profile",
+            JSON.stringify(profile)
+        );
+
+
+        updateDashboard();
+
+
+        alert("Profile saved successfully!");
+
+    }
+
+
+
+    function loadProfile() {
+
+        const saved =
+            localStorage.getItem("profile");
+
+
+        if (!saved) return;
+
+
+        const profile =
+            JSON.parse(saved);
+
+
+        document.getElementById("profileName")
+            .value = profile.name || "";
+
+
+        document.getElementById("profileAge")
+            .value = profile.age || "";
+
+
+        document.getElementById("profileHeight")
+            .value = profile.height || "";
+
+
+        document.getElementById("profileWeight")
+            .value = profile.weight || "";
+
+
+        document.getElementById("profileEmail")
+            .value = profile.email || "";
+
+    }
+
+
+
+    /* =====================================================
+                        PERIOD TRACKER
+    ===================================================== */
+
+    function calculatePeriod() {
+
+        const dateValue =
+            document.getElementById("periodDate").value;
+
+
+        const cycle =
+            parseInt(
+                document.getElementById("cycleLength").value
+            );
+
+
+        if (!dateValue || !cycle) {
+
+            alert(
+                "Please enter period date and cycle length."
+            );
+
+            return;
+
+        }
+
+
+        const lastPeriod =
+            new Date(dateValue);
+
+
+        const nextPeriod =
+            new Date(lastPeriod);
+
+
+        nextPeriod.setDate(
+            nextPeriod.getDate() + cycle
+        );
+
+
+        const formatted =
+            nextPeriod.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+
+        document.getElementById("periodResult")
+            .innerHTML =
+            "🌸 Estimated next period: <strong>"
+            + formatted +
+            "</strong>";
+
+
+        localStorage.setItem(
+            "nextPeriod",
+            formatted
+        );
+
+
+        localStorage.setItem(
+            "periodDate",
+            dateValue
+        );
+
+
+        localStorage.setItem(
+            "cycleLength",
+            cycle
+        );
+
+
+        updateDashboard();
+
+    }
+
+
+
+    /* =====================================================
+                        SYMPTOMS
+    ===================================================== */
+
+    function addSymptom() {
+
+        const date =
+            document.getElementById("symptomDate").value;
+
+        const symptom =
+            document.getElementById("symptomSelect").value;
+
+        const notes =
+            document.getElementById("symptomNotes").value;
+
+
+        if (!date) {
+
+            alert("Please select a date.");
+
+            return;
+
+        }
+
+
+        let symptoms =
+            JSON.parse(
+                localStorage.getItem("symptoms")
+            ) || [];
+
+
+        symptoms.push({
+
+            date: date,
+
+            symptom: symptom,
+
+            notes: notes
+
+        });
+
+
+        localStorage.setItem(
+            "symptoms",
+            JSON.stringify(symptoms)
+        );
+
+
+        document.getElementById("symptomNotes")
+            .value = "";
+
+
+        displaySymptoms();
+
+        updateDashboard();
+
+    }
+
+
+
+    function displaySymptoms() {
+
+        const list =
+            document.getElementById("symptomList");
+
+
+        let symptoms =
+            JSON.parse(
+                localStorage.getItem("symptoms")
+            ) || [];
+
+
+        list.innerHTML = "";
+
+
+        if (symptoms.length === 0) {
+
+            list.innerHTML =
+                "<p>No symptom records yet.</p>";
+
+            return;
+
+        }
+
+
+        symptoms.forEach((item, index) => {
+
+            list.innerHTML += `
+
+                <div class="list-item">
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteSymptom(${index})">
+
+                        Delete
+
+                    </button>
+
+                    <strong>
+                        ${item.symptom}
+                    </strong>
+
+                    <br>
+
+                    Date:
+                    ${item.date}
+
+                    <br>
+
+                    Notes:
+                    ${item.notes || "None"}
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+
+    function deleteSymptom(index) {
+
+        let symptoms =
+            JSON.parse(
+                localStorage.getItem("symptoms")
+            ) || [];
+
+
+        symptoms.splice(index, 1);
+
+
+        localStorage.setItem(
+            "symptoms",
+            JSON.stringify(symptoms)
+        );
+
+
+        displaySymptoms();
+
+        updateDashboard();
+
+    }
+
+
+
+    /* =====================================================
+                        MEDICINE
+    ===================================================== */
+
+    function addMedicine() {
+
+        const name =
+            document.getElementById("medicineName").value;
+
+        const date =
+            document.getElementById("medicineDate").value;
+
+        const time =
+            document.getElementById("medicineTime").value;
+
+
+        if (!name || !date || !time) {
+
+            alert(
+                "Please enter medicine name, date and time."
+            );
+
+            return;
+
+        }
+
+
+        let medicines =
+            JSON.parse(
+                localStorage.getItem("medicines")
+            ) || [];
+
+
+        medicines.push({
+
+            name: name,
+
+            date: date,
+
+            time: time
+
+        });
+
+
+        localStorage.setItem(
+            "medicines",
+            JSON.stringify(medicines)
+        );
+
+
+        document.getElementById("medicineName")
+            .value = "";
+
+
+        displayMedicines();
+
+        updateDashboard();
+
+    }
+
+
+
+    function displayMedicines() {
+
+        const list =
+            document.getElementById("medicineList");
+
+
+        let medicines =
+            JSON.parse(
+                localStorage.getItem("medicines")
+            ) || [];
+
+
+        list.innerHTML = "";
+
+
+        if (medicines.length === 0) {
+
+            list.innerHTML =
+                "<p>No medicine reminders yet.</p>";
+
+            return;
+
+        }
+
+
+        medicines.forEach((item, index) => {
+
+            list.innerHTML += `
+
+                <div class="list-item">
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteMedicine(${index})">
+
+                        Delete
+
+                    </button>
+
+                    <strong>
+                        💊 ${item.name}
+                    </strong>
+
+                    <br>
+
+                    Date:
+                    ${item.date}
+
+                    <br>
+
+                    Time:
+                    ${item.time}
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+
+    function deleteMedicine(index) {
+
+        let medicines =
+            JSON.parse(
+                localStorage.getItem("medicines")
+            ) || [];
+
+
+        medicines.splice(index, 1);
+
+
+        localStorage.setItem(
+            "medicines",
+            JSON.stringify(medicines)
+        );
+
+
+        displayMedicines();
+
+        updateDashboard();
+
+    }
+
+
+
+    /* =====================================================
+                        WATER TRACKER
+    ===================================================== */
+
+    function getTodayKey() {
+
+        const today =
+            new Date().toISOString().split("T")[0];
+
+        return "water_" + today;
+
+    }
+
+
+
+    function getWater() {
+
+        return parseInt(
+            localStorage.getItem(
+                getTodayKey()
+            )
+        ) || 0;
+
+    }
+
+
+
+    function updateWater() {
+
+        const count =
+            getWater();
+
+
+        document.getElementById("waterCount")
+            .textContent = count;
+
+
+        document.getElementById("dashboardWater")
+            .textContent = count;
+
+    }
+
+
+
+    function addWater() {
+
+        let count =
+            getWater();
+
+
+        count++;
+
+
+        localStorage.setItem(
+            getTodayKey(),
+            count
+        );
+
+
+        updateWater();
+
+    }
+
+
+
+    function removeWater() {
+
+        let count =
+            getWater();
+
+
+        if (count > 0) {
+
+            count--;
+
+        }
+
+
+        localStorage.setItem(
+            getTodayKey(),
+            count
+        );
+
+
+        updateWater();
+
+    }
+
+
+
+    function resetWater() {
+
+        localStorage.setItem(
+            getTodayKey(),
+            0
+        );
+
+
+        updateWater();
+
+    }
+
+
+
+    /* =====================================================
+                        DASHBOARD
+    ===================================================== */
+
+    function updateDashboard() {
+
+        const profile =
+            JSON.parse(
+                localStorage.getItem("profile")
+            );
+
+
+        if (profile) {
+
+            document.getElementById("dashName")
+                .textContent =
+                profile.name || "-";
+
+
+            document.getElementById("dashAge")
+                .textContent =
+                profile.age || "-";
+
+        }
+
+
+        const nextPeriod =
+            localStorage.getItem("nextPeriod");
+
+
+        document.getElementById("dashboardPeriod")
+            .textContent =
+            nextPeriod || "Not calculated";
+
+
+        const symptoms =
+            JSON.parse(
+                localStorage.getItem("symptoms")
+            ) || [];
+
+
+        document.getElementById("dashboardSymptoms")
+            .textContent =
+            symptoms.length;
+
+
+        const medicines =
+            JSON.parse(
+                localStorage.getItem("medicines")
+            ) || [];
+
+
+        document.getElementById("dashboardMedicine")
+            .textContent =
+            medicines.length;
+
+
+        updateWater();
+
+    }
+
+
+
+    /* =====================================================
+                        LOAD ALL DATA
+    ===================================================== */
+
+    function loadAllData() {
+
+        loadProfile();
+
+        displaySymptoms();
+
+        displayMedicines();
+
+        updateDashboard();
+
+
+        const periodDate =
+            localStorage.getItem("periodDate");
+
+
+        const cycleLength =
+            localStorage.getItem("cycleLength");
+
+
+        if (periodDate) {
+
+            document.getElementById("periodDate")
+                .value = periodDate;
+
+        }
+
+
+        if (cycleLength) {
+
+            document.getElementById("cycleLength")
+                .value = cycleLength;
+
+        }
+
+
+        const nextPeriod =
+            localStorage.getItem("nextPeriod");
+
+
+        if (nextPeriod) {
+
+            document.getElementById("periodResult")
+                .innerHTML =
+                "🌸 Estimated next period: <strong>"
+                + nextPeriod +
+                "</strong>";
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+                    CHECK LOGIN ON PAGE LOAD
+    ===================================================== */
+
+    window.onload = function() {
+
+        const loggedIn =
+            localStorage.getItem("loggedIn");
+
+
+        if (loggedIn === "true") {
+
+            showApp();
+
+        }
+
+    };
+
+</script>
+
+</body>
+</html>
+```
